@@ -18,9 +18,11 @@ jobs:
           v-version: master
 
       - name: Generate documentation
-        uses: test-room-7/action-create-v-docs@v0
-        with:
-          docs-dir: docs
+        run: |
+          mkdir -p docs
+          v doc -f html -inline-assets -no-timestamp -all -o docs .
+          rm -f $DOCS_DIR/index.html
+          mv docs/*.html docs/index.html
 
       - name: Update documentation
         uses: test-room-7/action-update-file@v1
